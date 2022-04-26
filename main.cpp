@@ -1,0 +1,34 @@
+#include<stdio.h>
+#include<conio.h>
+#include<iomanip>
+#include "TSPSolver.h"
+
+int main()
+{
+	try
+	{
+		TSPSolver tsp("we15.txt");
+
+		double time = omp_get_wtime();
+
+		cout << "Parallel : " << endl;
+		tsp.solve(false);
+		tsp.show();
+
+		cout << omp_get_wtime() - time << " seconds" << endl << endl;
+		tsp.restart();
+
+		time = omp_get_wtime();
+		cout << "Sequential : " << endl;
+		tsp.solve(true);
+		tsp.show();
+
+		cout << omp_get_wtime() - time << " seconds" << endl;
+	}
+	catch (exception &e)
+	{
+		cout << e.what() << endl;
+	}
+	cin.get();
+	return 0;
+}
